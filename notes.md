@@ -58,3 +58,33 @@ nats sub hello --queue="hello-group"
 nats sub hello --queue="hello-group"
 ```
 -----------------
+
+### Namespacing
+Publishers
+```
+nats pub org.order.submitted --count=-1 --sleep=2s "Order {{Count}} Submitted"
+nats pub org.order.processed --count=-1 --sleep=2s "Order {{Count}} Processed"
+nats pub org.payment.submitted --count=-1 --sleep=2s "Payment {{Count}} Submitted"
+nats pub org.payment.processed --count=-1 --sleep=2s "Payment {{Count}} Processed"
+```
+
+Subscribers
+```
+nats sub ">"
+nats sub "org.>"
+nats sub "org.order.>"
+nats sub "org.payment.>"
+nats sub "org.*.submitted"
+nats sub "org.*.processed"
+```
+
+## Request / Reply
+```
+nats reply foo "service instance A Reply# {{Count}}"
+```
+```
+nats request foo --count 2 "Request {{Count}}"
+```
+
+
+
