@@ -86,5 +86,29 @@ nats reply foo "service instance A Reply# {{Count}}"
 nats request foo --count 2 "Request {{Count}}"
 ```
 
+### Cluster
+```
+nats-server -n "server-1" -D -p 4222 -cluster nats://localhost:6222 --cluster_name=my_cluster --routes nats://localhost:6333,nats://localhost:6444
+
+nats-server -n "server-2" -D -p 4333 -cluster nats://localhost:6333 --cluster_name=my_cluster --routes nats://localhost:6222,nats://localhost:6444
+
+nats-server -n "server-3" -D -p 4444 -cluster nats://localhost:6444 --cluster_name=my_cluster --routes nats://localhost:6222,nats://localhost:6333
+```
+
+#### Cluster Auto Discovery
+
+```
+nats-server -n "server-1" -D -p 4222 -cluster nats://localhost:6222 --cluster_name=my_cluster 
+
+nats-server -n "server-2" -D -p 4333 -cluster nats://localhost:6333 --cluster_name=my_cluster --routes nats://localhost:6222
+
+nats-server -n "server-3" -D -p 4444 -cluster nats://localhost:6444 --cluster_name=my_cluster --routes nats://localhost:6222
+```
+
+## Shutdown server
+```
+nats-server -sl quit=<pid>
+
+
 
 
