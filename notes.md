@@ -76,6 +76,7 @@ nats sub "org.order.>"
 nats sub "org.payment.>"
 nats sub "org.*.submitted"
 nats sub "org.*.processed"
+nats sub "org.*.*.submitted"
 ```
 
 ## Request / Reply
